@@ -112,6 +112,7 @@ gulp.task('vet', function () { 	//vetting out our code
 });
 ```
 ### getting all plugins 
+instead of create a variable for each plugin we will use the "load-all-plugin" to help us with this teadous task
 ```sh
 npm install --save-dev gulp-load-plugins
 ```
@@ -132,8 +133,42 @@ gulp.task('vet', function () { 	//vetting out our code
 	.pipe($.jshint.reporter('fail'));
 	
 });
-
 ```
+
+### organizing the files 
+you need to organize your gulp file and not to use the majic string and use configurable options instead
+
+```sh 
+touch gulp.config.js
+```
+
+gulp.config.js
+```javasctipt
+var confing = {
+    alljs = ['./src/**/*.js']
+}
+module.exports = config;
+```
+```javascript
+var gulp = require('gulp');
+var args = require('yargs').argv;
+var $ = require('gulp-load-plugins')({lazy: true});     //lazy: load plugin ondemand
+var config = require('./gulp.config');
+// the convention is to use the name of the plugin after removing "gulp"
+// gulp-jshint will be $.jshint | gulpprint will be $.print
+gulp.task('vet', function () { 	//vetting out our code
+	log('Analyzing the source code using jscs and jshint');
+	gulp.src(config.alljs)
+	.pipe($.if(args.verbose,$.print()))
+	.pipe($.jscs())
+	.pipe($.jshint())
+	.pipe($.jshint.reporter('jshint-stylish', {verbose:true}))
+	.pipe($.jshint.reporter('fail'));
+	
+});
+```
+
+
 
 
 
