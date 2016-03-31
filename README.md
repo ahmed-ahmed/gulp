@@ -1,4 +1,16 @@
-# gulp
+# Gulp
+ 1. Minfy
+ 2. concat
+ 3. vendor preixes
+ 4. Less to css 
+ 5. vendor and custom code
+ 6. injecting files into html
+ 7. cache busting
+ 8. Template caching 
+ 9. Testing 
+ 10. Code andlysis 
+ 
+
 ## adding gulp to the project
 ```sh
 npm install -g gulp --save-dev
